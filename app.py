@@ -25,9 +25,20 @@ while(True):
     data_hora_formatada = data_hora_atual_brt.strftime("%d/%m/%Y %H:%M")
 
     if in_wallet:
-        print(f"A última listagem, {latest_listing}, está na sua carteira {data_hora_formatada}.")
+        msg = f"A última listagem, {latest_listing}, está na sua carteira {data_hora_formatada}."
+        # Abrindo o arquivo em modo de anexação
+        with open("arquivo.txt", "a") as arquivo:
+            # Escrevendo a frase em uma nova linha
+            arquivo.write(msg + "\n")
+        print(msg)
+
     else:
-        print(f"A última listagem, {latest_listing}, não está na sua carteira {data_hora_formatada}.")
+        msg = f"A última listagem, {latest_listing}, não está na sua carteira {data_hora_formatada}."
+        # Abrindo o arquivo em modo de anexação
+        with open("arquivo.txt", "a") as arquivo:
+            # Escrevendo a frase em uma nova linha
+            arquivo.write(msg + "\n")
+        print(msg)
         convert_btc_to_token(latest_listing)
     
     time.sleep(30)
