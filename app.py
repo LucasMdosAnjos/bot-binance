@@ -1,5 +1,7 @@
 
 import time
+
+import pytz
 from resources.check_in_wallet import check_in_wallet
 from resources.convert_btc_to_new_listing import convert_btc_to_token
 from resources.get_btc_balance import get_btc_balance
@@ -13,11 +15,15 @@ while(True):
 
     # Verificando se a última listagem está na carteira
     in_wallet = check_in_wallet(latest_listing)
-    # Obtendo a data e hora atual
-    data_hora_atual = datetime.now()
+    # Definindo o fuso horário para o horário de Brasília (BRT)
+    fuso_horario = pytz.timezone('America/Sao_Paulo')
 
-    # Formatando a data para o formato dd/mm/yyyy
-    data_hora_formatada = data_hora_atual.strftime("%d/%m/%Y %H:%M")
+    # Obtendo a data e hora atual no fuso horário de Brasília
+    data_hora_atual_brt = datetime.now(fuso_horario)
+
+    # Formatando a data e hora para o formato dd/mm/yyyy HH:MM
+    data_hora_formatada = data_hora_atual_brt.strftime("%d/%m/%Y %H:%M")
+
     if in_wallet:
         print(f"A última listagem, {latest_listing}, está na sua carteira {data_hora_formatada}.")
     else:
